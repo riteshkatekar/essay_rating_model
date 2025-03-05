@@ -1,5 +1,8 @@
-Flask
+flask
 numpy
+joblib
 scikit-learn
+nltk
+spacy
+textblob
 gunicorn
-
