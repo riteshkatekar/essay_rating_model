@@ -7,9 +7,12 @@ import textstat
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-# Download required NLTK resources
-nltk.download('punkt')
-nltk.download('vader_lexicon')
+# Ensure NLTK data is downloaded and set proper paths
+nltk_data_path = "/usr/share/nltk_data"
+os.makedirs(nltk_data_path, exist_ok=True)
+nltk.data.path.append(nltk_data_path)
+nltk.download('punkt', download_dir=nltk_data_path)
+nltk.download('vader_lexicon', download_dir=nltk_data_path)
 
 # Initialize NLP tools
 sia = SentimentIntensityAnalyzer()
@@ -45,7 +48,7 @@ def home():
 def rate_essay():
     try:
         data = request.json
-        essay_text = data.get("essay", "")
+        essay_text = data.get("essay", "").strip()
 
         if not essay_text:
             return jsonify({"error": "No essay provided"}), 400
